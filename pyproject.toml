@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "retail-analytics"
+version = "1.0.0"
+description = "Analyse des ventes d'un e-commerçant (Online Retail II) : nettoyage, SQL analytique, segmentation, visualisation"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Sassi Benalouache" }]
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=1.1",
+    "openpyxl>=3.1",
+    "pandas>=2.2",
+    "plotly>=5.24",
+    "pyarrow>=17",
+]
+
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.40"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+retail = "retail.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/retail"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
